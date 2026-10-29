@@ -1,0 +1,121 @@
+============================================================
+AGENT02: RL AGENT VS RULE-BASED AGENT
+============================================================
+Episodes: 5000
+Steps per episode: 20
+Evaluation episodes: 500
+Random seed: 42
+Output directory: D:\UBUNTU\ASIGNMENT-AGENT_02\AI-Agent-assigment\agent02_results
+
+============================================================
+EXPERIMENT 1: BASELINE
+============================================================
+
+Separate evaluation results:
+RL           | total reward = 351275 | mean reward/step = 35.1275 | discount rate = 0.000
+Rule-based   | total reward = 349685 | mean reward/step = 34.9685 | discount rate = 0.000
+
+Learned greedy policy:
+State (0, 0): NO DISCOUNT
+State (0, 1): DISCOUNT
+State (1, 0): NO DISCOUNT
+State (1, 1): DISCOUNT
+
+============================================================
+EXPERIMENT 2: LEARNING RATE
+============================================================
+alpha=0.01 | evaluation reward/step=35.2475 | discount rate=0.000
+alpha=0.10 | evaluation reward/step=35.2475 | discount rate=0.000
+alpha=0.50 | evaluation reward/step=28.5085 | discount rate=0.405
+
+============================================================
+EXPERIMENT 3: EXPLORATION
+============================================================
+low        | train(last 1000)=33.6512 | evaluation reward/step=35.1045
+baseline   | train(last 1000)=33.2386 | evaluation reward/step=35.1045
+high       | train(last 1000)=33.1356 | evaluation reward/step=35.1045
+fixed_0.05 | train(last 1000)=32.7134 | evaluation reward/step=35.1045
+fixed_0.30 | train(last 1000)=30.6272 | evaluation reward/step=27.4464
+
+============================================================
+EXPERIMENT 4: MULTIPLE RANDOM SEEDS
+============================================================
+
+Mean and standard deviation across seeds:
+RL           | mean=34.8919 | std=0.3132 | n=5
+Rule-based   | mean=34.9321 | std=0.2496 | n=5
+
+============================================================
+EXTENSION A: ANALYTIC ONE-STEP EXPECTED REWARD
+============================================================
+delta=0.20 d=0 c=0 | E[r|a=0]= 15.00  E[r|a=1]= 13.50
+delta=0.20 d=0 c=1 | E[r|a=0]= 10.00  E[r|a=1]= 10.50
+delta=0.20 d=1 c=0 | E[r|a=0]= 55.00  E[r|a=1]= 42.00
+delta=0.20 d=1 c=1 | E[r|a=0]= 45.00  E[r|a=1]= 36.00
+delta=0.10 d=0 c=0 | E[r|a=0]= 15.00  E[r|a=1]= 18.00
+delta=0.10 d=0 c=1 | E[r|a=0]= 10.00  E[r|a=1]= 14.00
+delta=0.10 d=1 c=0 | E[r|a=0]= 55.00  E[r|a=1]= 56.00
+delta=0.10 d=1 c=1 | E[r|a=0]= 45.00  E[r|a=1]= 48.00
+
+============================================================
+EXTENSION B: RULE-BASED AGENT IN THE RL SLOT (FAIR REFERENCE)
+============================================================
+Rule-based (slot 0)    | mean reward/step = 35.1275 | discount rate = 0.000
+Rule-based opponent    | mean reward/step = 34.9685 | discount rate = 0.000
+
+============================================================
+EXTENSION C: RESULTS TABLE OVER 5 SEEDS
+============================================================
+RL, baseline (alpha=0.10, eps 0.20->0.02)     | mean=34.8919 | std=0.3132 | discount rate=0.000
+RL, low learning rate (alpha=0.01)            | mean=34.8919 | std=0.3132 | discount rate=0.000
+RL, high learning rate (alpha=0.50)           | mean=33.6299 | std=1.6924 | discount rate=0.201
+RL, fixed eps=0.05                            | mean=34.3675 | std=1.0857 | discount rate=0.082
+RL, fixed eps=0.30                            | mean=28.7730 | std=3.8280 | discount rate=0.499
+RL, high exploration (0.50->0.05)             | mean=32.4223 | std=4.1852 | discount rate=0.266
+Rule-based                                    | mean=34.8919 | std=0.3132 | discount rate=0.000
+Never discount (reference)                    | mean=34.8919 | std=0.3132 | discount rate=0.000
+Always discount (reference)                   | mean=24.8294 | std=0.1801 | discount rate=1.000
+
+============================================================
+EXTENSION D: TWO SIMULTANEOUS Q-LEARNERS (Q8)
+============================================================
+seed 11 | agent1 eval=34.744 (disc 0.000) | agent2 eval=34.827 (disc 0.000)
+seed 22 | agent1 eval=33.063 (disc 0.494) | agent2 eval=33.057 (disc 0.494)
+seed 33 | agent1 eval=29.864 (disc 0.507) | agent2 eval=29.082 (disc 0.764)
+seed 44 | agent1 eval=35.117 (disc 0.000) | agent2 eval=35.084 (disc 0.000)
+seed 55 | agent1 eval=34.602 (disc 0.000) | agent2 eval=34.745 (disc 0.000)
+
+============================================================
+EXTENSION E: MODIFIED ENVIRONMENTS (Q9)
+============================================================
+Reference (delta=0.20, i.i.d. demand)      | RL=34.892+/-0.313 (disc 0.00) | Rule=34.892+/-0.313 (disc 0.00)
+Smaller discount (delta=0.10)              | RL=33.717+/-0.432 (disc 0.56) | Rule=34.892+/-0.313 (disc 0.00)
+Persistent demand (stay prob 0.9)          | RL=32.107+/-3.161 (disc 0.40) | Rule=34.868+/-0.455 (disc 0.00)
+Aggressive opponent (always discounts)     | RL=26.729+/-1.708 (disc 0.50) | Rule=23.161+/-0.232 (disc 0.47)
+
+============================================================
+EXTENSION F: IMPROVED AGENT, ABLATION (Q10)
+============================================================
+Reference (delta=0.20, i.i.d. demand)    | Augmented state only                   | 32.318 +/- 2.565 (disc 0.22)
+Reference (delta=0.20, i.i.d. demand)    | Decaying alpha only                    | 34.892 +/- 0.313 (disc 0.00)
+Reference (delta=0.20, i.i.d. demand)    | Improved (augmented + decaying alpha)  | 34.892 +/- 0.313 (disc 0.00)
+Smaller discount (delta=0.10)            | Augmented state only                   | 33.908 +/- 0.348 (disc 0.44)
+Smaller discount (delta=0.10)            | Decaying alpha only                    | 33.468 +/- 0.320 (disc 0.77)
+Smaller discount (delta=0.10)            | Improved (augmented + decaying alpha)  | 34.750 +/- 0.212 (disc 0.08)
+Persistent demand (stay prob 0.9)        | Augmented state only                   | 33.666 +/- 2.042 (disc 0.25)
+Persistent demand (stay prob 0.9)        | Decaying alpha only                    | 34.411 +/- 0.943 (disc 0.20)
+Persistent demand (stay prob 0.9)        | Improved (augmented + decaying alpha)  | 34.746 +/- 0.502 (disc 0.05)
+Aggressive opponent (always discounts)   | Augmented state only                   | 27.146 +/- 1.087 (disc 0.41)
+Aggressive opponent (always discounts)   | Decaying alpha only                    | 27.616 +/- 0.176 (disc 0.40)
+Aggressive opponent (always discounts)   | Improved (augmented + decaying alpha)  | 27.558 +/- 0.168 (disc 0.26)
+
+============================================================
+ALL EXPERIMENTS COMPLETED
+============================================================
+Results saved to: D:\UBUNTU\ASIGNMENT-AGENT_02\AI-Agent-assigment\agent02_results
+
+Use the CSV files and PNG figures in the AGENT02 report.
+
+real	14m8.308s
+user	0m0.000s
+sys	0m0.031s

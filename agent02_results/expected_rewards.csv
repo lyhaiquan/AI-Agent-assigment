@@ -1,0 +1,9 @@
+discount_rate,demand,competitor_current_action,E_reward_no_discount,E_reward_discount,better_action
+0.2,0,0,15.0,13.5,0
+0.2,0,1,10.0,10.5,1
+0.2,1,0,55.0,42.0,0
+0.2,1,1,45.0,36.0,0
+0.1,0,0,15.0,18.0,1
+0.1,0,1,10.0,14.0,1
+0.1,1,0,55.0,56.0,1
+0.1,1,1,45.0,48.0,1

@@ -1,0 +1,90 @@
+=== seed 11, agent 1 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=231.514912 | Q1=182.696662 | Greedy action=0
+State=(0, 1) | Q0=170.167463 | Q1=188.682232 | Greedy action=1
+State=(1, 0) | Q0=235.944924 | Q1=213.231646 | Greedy action=0
+State=(1, 1) | Q0=247.351362 | Q1=205.457558 | Greedy action=0
+
+=== seed 11, agent 2 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=225.913666 | Q1=183.200253 | Greedy action=0
+State=(0, 1) | Q0=169.401630 | Q1=197.130762 | Greedy action=1
+State=(1, 0) | Q0=235.245129 | Q1=219.639156 | Greedy action=0
+State=(1, 1) | Q0=241.086715 | Q1=216.067506 | Greedy action=0
+
+=== seed 22, agent 1 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=170.848890 | Q1=203.142887 | Greedy action=1
+State=(0, 1) | Q0=166.384340 | Q1=174.943981 | Greedy action=1
+State=(1, 0) | Q0=239.495242 | Q1=224.131343 | Greedy action=0
+State=(1, 1) | Q0=249.810516 | Q1=222.916698 | Greedy action=0
+
+=== seed 22, agent 2 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=180.842474 | Q1=209.321804 | Greedy action=1
+State=(0, 1) | Q0=181.270521 | Q1=181.806904 | Greedy action=1
+State=(1, 0) | Q0=251.174387 | Q1=209.647784 | Greedy action=0
+State=(1, 1) | Q0=260.257335 | Q1=205.682495 | Greedy action=0
+
+=== seed 33, agent 1 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=166.370136 | Q1=207.907147 | Greedy action=1
+State=(0, 1) | Q0=154.465606 | Q1=171.320479 | Greedy action=1
+State=(1, 0) | Q0=237.208349 | Q1=222.879938 | Greedy action=0
+State=(1, 1) | Q0=241.190731 | Q1=193.750352 | Greedy action=0
+
+=== seed 33, agent 2 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=171.793540 | Q1=189.469248 | Greedy action=1
+State=(0, 1) | Q0=167.496682 | Q1=168.156163 | Greedy action=1
+State=(1, 0) | Q0=203.680679 | Q1=226.072628 | Greedy action=1
+State=(1, 1) | Q0=223.879646 | Q1=217.990644 | Greedy action=0
+
+=== seed 44, agent 1 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=194.886857 | Q1=168.444101 | Greedy action=0
+State=(0, 1) | Q0=167.485722 | Q1=155.635567 | Greedy action=0
+State=(1, 0) | Q0=238.798375 | Q1=212.105905 | Greedy action=0
+State=(1, 1) | Q0=229.433550 | Q1=196.434568 | Greedy action=0
+
+=== seed 44, agent 2 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=201.795177 | Q1=175.164489 | Greedy action=0
+State=(0, 1) | Q0=181.826664 | Q1=205.585102 | Greedy action=1
+State=(1, 0) | Q0=246.673401 | Q1=200.919008 | Greedy action=0
+State=(1, 1) | Q0=221.412555 | Q1=212.623572 | Greedy action=0
+
+=== seed 55, agent 1 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=190.336290 | Q1=170.379992 | Greedy action=0
+State=(0, 1) | Q0=203.155664 | Q1=179.906409 | Greedy action=0
+State=(1, 0) | Q0=267.067134 | Q1=219.699972 | Greedy action=0
+State=(1, 1) | Q0=219.547321 | Q1=230.966785 | Greedy action=1
+
+=== seed 55, agent 2 ===
+Q-table: Q[demand, competitor_previous_action, action]
+Action 0 = no discount; Action 1 = discount
+
+State=(0, 0) | Q0=180.869739 | Q1=179.525207 | Greedy action=0
+State=(0, 1) | Q0=171.117728 | Q1=198.812513 | Greedy action=1
+State=(1, 0) | Q0=256.005904 | Q1=211.001386 | Greedy action=0
+State=(1, 1) | Q0=241.340290 | Q1=201.170528 | Greedy action=0
+

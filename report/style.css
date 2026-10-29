@@ -1,0 +1,44 @@
+@page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+
+body {
+    font-family: "Cambria", "Georgia", "Times New Roman", serif;
+    font-size: 10.5pt;
+    line-height: 1.45;
+    color: #1a1a1a;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
+header#title-block-header { display: none; }
+
+h1, h2, h3, h4 { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: #1f3a5f; }
+h1 { font-size: 18pt; border-bottom: 2px solid #1f3a5f; padding-bottom: 4px; margin-top: 28px; page-break-before: always; }
+h1.no-break, .title-page h1 { page-break-before: avoid; border: none; }
+h2, h3 { break-after: avoid; page-break-after: avoid; }
+h2 + *, h3 + * { break-before: avoid; page-break-before: avoid; }
+h2 { font-size: 13.5pt; margin-top: 20px; }
+h3 { font-size: 11.5pt; margin-top: 14px; }
+
+.title-page { text-align: center; padding-top: 70mm; page-break-after: always; }
+.title-page .big { font-size: 24pt; font-weight: bold; color: #1f3a5f; font-family: "Segoe UI", Arial, sans-serif; }
+.title-page .sub { font-size: 14pt; margin-top: 8px; }
+.title-page table { margin: 30px auto 0 auto; font-size: 11.5pt; }
+.title-page td { padding: 4px 14px; border: none; text-align: left; }
+
+table { border-collapse: collapse; margin: 10px auto; font-size: 9.5pt; page-break-inside: avoid; }
+th, td { border: 1px solid #b8c2cc; padding: 4px 8px; }
+th { background: #e8eef5; }
+tr:nth-child(even) td { background: #f7f9fb; }
+
+pre, code { font-family: "Consolas", "Courier New", monospace; font-size: 8.6pt; }
+pre { background: #f5f7f9; border: 1px solid #d8dee4; padding: 8px 10px; white-space: pre-wrap; page-break-inside: avoid; }
+
+figure { text-align: center; margin: 12px auto; page-break-inside: avoid; }
+figure img, p > img { max-width: 92%; max-height: 105mm; }
+figcaption { font-size: 9pt; color: #444; margin-top: 4px; }
+
+blockquote { border-left: 3px solid #1f3a5f; margin: 10px 0; padding: 2px 12px; color: #333; background: #f3f6fa; }
+
+nav#TOC ul { list-style: none; padding-left: 14px; }
