@@ -1,19 +1,12 @@
 #!/usr/bin/env bash
-# Build the PDF report from report.md (no LaTeX needed).
+# Build the PDF reports from Markdown (no LaTeX needed).
+#   report.md     -> agent02_05_LyHaiQuan.pdf     (English)
+#   report_vi.md  -> agent02_05_LyHaiQuan_vi.pdf  (Vietnamese)
 # Requires: pandoc, Microsoft Edge or Google Chrome.
 # Usage: bash report/build_pdf.sh   (from the repository root)
 set -euo pipefail
 
 cd "$(dirname "$0")"
-
-OUT="agent02_05_LyHaiQuan.pdf"
-
-pandoc report.md \
-    --standalone --mathml --embed-resources \
-    --resource-path=.:.. \
-    --css=style.css \
-    --metadata title="AGENT02 Report" \
-    -o report.html
 
 BROWSER=""
 for candidate in \
@@ -28,14 +21,27 @@ for candidate in \
 done
 
 if [ -z "$BROWSER" ]; then
-    echo "No Edge/Chrome found; open report/report.html and print to PDF manually." >&2
+    echo "No Edge/Chrome found; open the .html files and print to PDF manually." >&2
     exit 1
 fi
 
-HTML_PATH="$(pwd -W 2>/dev/null || pwd)/report.html"
-PDF_PATH="$(pwd -W 2>/dev/null || pwd)/$OUT"
+DIR="$(pwd -W 2>/dev/null || pwd)"
 
-"$BROWSER" --headless --disable-gpu --no-pdf-header-footer \
-    --print-to-pdf="$PDF_PATH" "file:///$HTML_PATH"
+build() {
+    local src="$1" html="$2" out="$3"
 
-echo "Wrote report/$OUT"
+    pandoc "$src" \
+        --standalone --mathml --embed-resources \
+        --resource-path=.:.. \
+        --css=style.css \
+        --metadata title="AGENT02 Report" \
+        -o "$html"
+
+    "$BROWSER" --headless --disable-gpu --no-pdf-header-footer \
+        --print-to-pdf="$DIR/$out" "file:///$DIR/$html"
+
+    echo "Wrote report/$out"
+}
+
+build report.md report.html agent02_05_LyHaiQuan.pdf
+build report_vi.md report_vi.html agent02_05_LyHaiQuan_vi.pdf
