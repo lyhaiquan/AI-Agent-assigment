@@ -14,7 +14,7 @@ This repository contains the experiment code, all raw results and the written re
 | `agent02_results/` | All CSV files, Q-tables and figures produced by one run |
 | `run_log.txt` | Console output of the run used in the report |
 | `report/report.md` | Report source (Markdown) |
-| `report/agent02_class_team_name.pdf` | Report as PDF (rename `class` / `team_name` before submitting) |
+| `report/agent02_05_LyHaiQuan.pdf` | Report as PDF (Lý Hải Quân, B23DCCN676, class 05) |
 | `report/build_pdf.sh` | Rebuilds the PDF from the Markdown (pandoc + Edge/Chrome, no LaTeX) |
 
 ## How to run

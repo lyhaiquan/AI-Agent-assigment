@@ -6,7 +6,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-OUT="agent02_class_team_name.pdf"
+OUT="agent02_05_LyHaiQuan.pdf"
 
 pandoc report.md \
     --standalone --mathml --embed-resources \

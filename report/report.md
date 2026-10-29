@@ -8,9 +8,10 @@ lang: en
 <div class="sub">Reinforcement-Learning-Based Agents versus Rule-Based Agents</div>
 <div class="sub">Intelligent System Development, Academic Year 2026–2027</div>
 <table>
-<tr><td><b>Class</b></td><td>[class]</td></tr>
-<tr><td><b>Team</b></td><td>[team name]</td></tr>
-<tr><td><b>Members</b></td><td>[full name – student ID]</td></tr>
+<tr><td><b>Student</b></td><td>Lý Hải Quân</td></tr>
+<tr><td><b>Student ID</b></td><td>B23DCCN676</td></tr>
+<tr><td><b>Class</b></td><td>05</td></tr>
+<tr><td><b>Work arrangement</b></td><td>Individual</td></tr>
 <tr><td><b>Submission</b></td><td>29 October 2026</td></tr>
 <tr><td><b>Source code</b></td><td>github.com/lyhaiquan/AI-Agent-assigment</td></tr>
 </table>
