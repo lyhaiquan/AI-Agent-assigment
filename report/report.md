@@ -13,7 +13,7 @@ lang: en
 <tr><td><b>Class</b></td><td>05</td></tr>
 <tr><td><b>Work arrangement</b></td><td>Individual</td></tr>
 <tr><td><b>Submission</b></td><td>29 October 2026</td></tr>
-<tr><td><b>Source code</b></td><td>github.com/lyhaiquan/AI-Agent-assigment</td></tr>
+<tr><td><b>Source code</b></td><td><a href="https://github.com/lyhaiquan/AI-Agent-assigment">https://github.com/lyhaiquan/AI-Agent-assigment</a></td></tr>
 </table>
 </div>
 
@@ -99,6 +99,8 @@ class RuleBasedAgent:
 Each seller's reward depends on the other seller's *current* action (the $-0.10\,a_{-i}$ term), and its next observation contains the other seller's action ($c_i(t+1) = a_{-i}(t)$). Neither agent controls the whole environment, and neither sees the other's action before choosing. This is a two-player stochastic game, not a single-agent Markov decision process. In particular, the rule-based opponent *reacts* to the RL agent: if A discounts in high demand, B discounts at the next high-demand step. That reaction drives most of the results below.
 
 # 3. Experimental setup
+
+**Source code, raw results and demo:** <https://github.com/lyhaiquan/AI-Agent-assigment>. The full program is [`agent02_experiment.py`](https://github.com/lyhaiquan/AI-Agent-assigment/blob/main/agent02_experiment.py); every CSV and figure used below is in [`agent02_results/`](https://github.com/lyhaiquan/AI-Agent-assigment/tree/main/agent02_results); the console output of the run is [`run_log.txt`](https://github.com/lyhaiquan/AI-Agent-assigment/blob/main/run_log.txt).
 
 ## 3.1 Parameters
 
@@ -477,7 +479,7 @@ Rationale. The augmented state makes the problem Markov with respect to any oppo
 
 # 7. Interactive demo
 
-To make the experiments easy to explore and present, we built a small web interface with **Streamlit** (`demo_app.py` in the GitHub repository). The demo does not re-implement anything: it imports `ECommerceEnvironment`, `QLearningAgent`, `RuleBasedAgent`, `ImprovedQLearningAgent` and `train_rl_against_rule` directly from `agent02_experiment.py`. With the default settings (seed 42) it reproduces the baseline result of Section 4.1 exactly: 35.127 per step for both agents.
+To make the experiments easy to explore and present, we built a small web interface with **Streamlit** ([`demo_app.py`](https://github.com/lyhaiquan/AI-Agent-assigment/blob/main/demo_app.py) in the GitHub repository <https://github.com/lyhaiquan/AI-Agent-assigment>). The demo does not re-implement anything: it imports `ECommerceEnvironment`, `QLearningAgent`, `RuleBasedAgent`, `ImprovedQLearningAgent` and `train_rl_against_rule` directly from `agent02_experiment.py`. With the default settings (seed 42) it reproduces the baseline result of Section 4.1 exactly: 35.127 per step for both agents.
 
 **How to run.**
 
@@ -522,6 +524,8 @@ The single-seed numbers in the demo (e.g. 27.446 for the improved agent against 
 We implemented a two-seller e-commerce simulation, a tabular Q-learning agent and a rule-based agent, and compared them under a separated, greedy, multi-seed evaluation in which both policies occupy the same slot against the same opponent. In the reference market the two approaches are **tied at 34.89 ± 0.31 per step**: the Q-learner rediscovers the rule-based policy, which is analytically optimal against this opponent (35.0). Learning shows its value only when the environment departs from what the rules assumed (aggressive opponent: +3.6 per step). The reference learner also has clear weak points: sensitivity to α and ε, failures in two modified markets, and unpredictable outcomes when two learners interact. Most of these failures trace back to two causes, a state that omits the agent's own previous action and noisy constant-α updates. An agent that fixes both was as good as the rules where the rules are right and better where they are wrong. The general lesson: the ranking of the two approaches depends on the environment, the state design and the evaluation protocol, so a careful comparison needs analytic baselines, matched seeds and several environments, not a single training curve.
 
 # 10. References
+
+**Source code, results and demo of this report:** <https://github.com/lyhaiquan/AI-Agent-assigment>
 
 1. Course material: *Laboratory Experiment 02 – Reinforcement-Learning-Based Agents versus Rule-Based Agents* and *AGENT02: Python Implementation*, Intelligent System Development, 2026–2027.
 2. Course slides: *Multi-Agent Systems*, 20 October 2026.

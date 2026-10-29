@@ -13,7 +13,7 @@ lang: vi
 <tr><td><b>Lớp</b></td><td>05</td></tr>
 <tr><td><b>Hình thức</b></td><td>Cá nhân</td></tr>
 <tr><td><b>Ngày nộp</b></td><td>29/10/2026</td></tr>
-<tr><td><b>Mã nguồn</b></td><td>github.com/lyhaiquan/AI-Agent-assigment</td></tr>
+<tr><td><b>Mã nguồn</b></td><td><a href="https://github.com/lyhaiquan/AI-Agent-assigment">https://github.com/lyhaiquan/AI-Agent-assigment</a></td></tr>
 </table>
 </div>
 
@@ -99,6 +99,8 @@ class RuleBasedAgent:
 Phần thưởng của mỗi người bán phụ thuộc vào hành động *hiện tại* của người bán kia (số hạng $-0.10\,a_{-i}$), và quan sát tiếp theo của nó chứa hành động của người bán kia ($c_i(t+1) = a_{-i}(t)$). Không agent nào kiểm soát toàn bộ môi trường, và không agent nào thấy hành động của bên kia trước khi chọn. Đây là một trò chơi ngẫu nhiên hai người chơi, không phải một quá trình quyết định Markov một agent. Đặc biệt, đối thủ dựa trên luật *phản ứng* lại agent RL: nếu A giảm giá khi nhu cầu cao, B sẽ giảm giá ở bước nhu cầu cao tiếp theo. Chính phản ứng này chi phối phần lớn các kết quả dưới đây.
 
 # 3. Thiết lập thí nghiệm
+
+**Mã nguồn, kết quả thô và demo:** <https://github.com/lyhaiquan/AI-Agent-assigment>. Chương trình đầy đủ là [`agent02_experiment.py`](https://github.com/lyhaiquan/AI-Agent-assigment/blob/main/agent02_experiment.py); mọi file CSV và hình vẽ dùng bên dưới nằm trong [`agent02_results/`](https://github.com/lyhaiquan/AI-Agent-assigment/tree/main/agent02_results); output console của lần chạy là [`run_log.txt`](https://github.com/lyhaiquan/AI-Agent-assigment/blob/main/run_log.txt).
 
 ## 3.1 Tham số
 
@@ -477,7 +479,7 @@ Lý do. Trạng thái mở rộng làm bài toán có tính Markov đối với 
 
 # 7. Demo giao diện
 
-Để dễ khám phá và trình bày các thí nghiệm, chúng tôi xây dựng một giao diện web nhỏ bằng **Streamlit** (`demo_app.py` trong repository GitHub). Demo không viết lại logic nào: nó import trực tiếp `ECommerceEnvironment`, `QLearningAgent`, `RuleBasedAgent`, `ImprovedQLearningAgent` và `train_rl_against_rule` từ `agent02_experiment.py`. Với thiết lập mặc định (seed 42), demo tái lập chính xác kết quả baseline ở mục 4.1: 35.127 mỗi bước cho cả hai agent.
+Để dễ khám phá và trình bày các thí nghiệm, chúng tôi xây dựng một giao diện web nhỏ bằng **Streamlit** ([`demo_app.py`](https://github.com/lyhaiquan/AI-Agent-assigment/blob/main/demo_app.py) trong repository GitHub <https://github.com/lyhaiquan/AI-Agent-assigment>). Demo không viết lại logic nào: nó import trực tiếp `ECommerceEnvironment`, `QLearningAgent`, `RuleBasedAgent`, `ImprovedQLearningAgent` và `train_rl_against_rule` từ `agent02_experiment.py`. Với thiết lập mặc định (seed 42), demo tái lập chính xác kết quả baseline ở mục 4.1: 35.127 mỗi bước cho cả hai agent.
 
 **Cách chạy.**
 
@@ -522,6 +524,8 @@ Các con số một seed trong demo (ví dụ 27.446 của agent cải tiến tr
 Chúng tôi đã cài đặt một mô phỏng thương mại điện tử hai người bán, một agent Q-learning dạng bảng và một agent dựa trên luật, rồi so sánh chúng bằng quy trình đánh giá tách riêng, greedy, nhiều seed, trong đó hai chính sách đứng cùng vị trí và gặp cùng đối thủ. Trong thị trường gốc, hai cách tiếp cận **hoà nhau ở mức 34.89 ± 0.31 mỗi bước**: Q-learner tự tìm lại chính sách của agent luật, vốn là tối ưu về mặt giải tích trước đối thủ này (35.0). Việc học chỉ thể hiện giá trị khi môi trường khác với những gì luật giả định (đối thủ hung hăng: +3.6 mỗi bước). Agent học gốc cũng có những điểm yếu rõ ràng: nhạy với α và ε, thất bại ở hai thị trường sửa đổi, và kết cục khó đoán khi hai agent cùng học. Phần lớn các thất bại này bắt nguồn từ hai nguyên nhân: trạng thái thiếu hành động trước đó của chính agent, và cập nhật nhiễu với α cố định. Một agent khắc phục cả hai điều này tốt ngang luật ở nơi luật đúng và tốt hơn ở nơi luật sai. Bài học chung: thứ hạng giữa hai cách tiếp cận phụ thuộc vào môi trường, cách thiết kế trạng thái và quy trình đánh giá. Vì vậy một so sánh cẩn thận cần có mốc tham chiếu giải tích, seed ghép cặp và nhiều môi trường, chứ không chỉ một đường cong huấn luyện.
 
 # 10. Tài liệu tham khảo
+
+**Mã nguồn, kết quả và demo của báo cáo này:** <https://github.com/lyhaiquan/AI-Agent-assigment>
 
 1. Tài liệu môn học: *Laboratory Experiment 02 – Reinforcement-Learning-Based Agents versus Rule-Based Agents* và *AGENT02: Python Implementation*, Intelligent System Development, 2026–2027.
 2. Slide bài giảng: *Multi-Agent Systems*, 20/10/2026.
