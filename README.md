@@ -12,6 +12,7 @@ This repository contains the experiment code, all raw results and the written re
 |---|---|
 | `agent02_experiment.py` | Full experiment program: reference code (sections 1–13) + documented extensions |
 | `agent02_results/` | All CSV files, Q-tables and figures produced by one run |
+| `demo_app.py` | Interactive Streamlit demo (uses the classes from `agent02_experiment.py`) |
 | `run_log.txt` | Console output of the run used in the report |
 | `report/report.md`, `report/report_vi.md` | Report source (Markdown), English and Vietnamese |
 | `report/agent02_05_LyHaiQuan.pdf` | Report as PDF, English (Lý Hải Quân, B23DCCN676, class 05) |
@@ -31,6 +32,17 @@ environment seed 42 for the baseline, training seeds 11, 22, 33, 44, 55 for mult
 evaluation seed = training seed + 800 000.
 
 Tested with Python 3.14.2, NumPy 2.4.2, Matplotlib 3.11.1.
+
+## Interactive demo
+
+```bash
+pip install -r requirements.txt
+streamlit run demo_app.py
+```
+
+Opens at http://localhost:8501. Pick a market scenario, the agent type (reference or improved Q-learner),
+α, the ε schedule and the seed; then train and compare the RL agent with the rule-based agent,
+replay one episode step by step, or browse the full-run results. Screenshots are in `report/img/`.
 
 ## Experiments
 

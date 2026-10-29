@@ -33,7 +33,7 @@ The objectives are to model the problem as a multi-agent system, implement both 
 1. In the reference market the trained RL agent and the rule-based agent obtain **exactly the same evaluation reward** (34.89 ± 0.31 per step over 5 seeds). On the visited states both policies reduce to "never discount", which the analytic calculation in Section 5.1 shows is the best policy against this opponent (35.0 per step in expectation).
 2. Learning is fragile. A high learning rate (α = 0.5) or heavy exploration (fixed ε = 0.30) produce policies that discount too often and lose 1–6 units per step.
 3. When the environment changes, the rule-based agent cannot adapt. Against an aggressive always-discount competitor the RL agent earns **26.73** against **23.16** for the rules. But the reference RL agent also *loses* to the rules in two modified markets, because its state does not contain its own previous action.
-4. An improved Q-learner that adds its own previous action to the state and uses a decaying learning rate matches the rules where the rules are good and beats them where they are not (Section 7, Q10).
+4. An improved Q-learner that adds its own previous action to the state and uses a decaying learning rate matches the rules where the rules are good and beats them where they are not (Section 6, Q10; demo in Section 7).
 
 # 2. Environment and agents
 
@@ -475,7 +475,39 @@ Rationale. The augmented state makes the problem Markov with respect to any oppo
 
 **How to decide "more robust".** An agent is more robust if, across a *set* of environments and seeds, (i) its worst-case mean reward is higher, (ii) its average regret relative to the best policy in each environment is lower, and (iii) its seed-to-seed standard deviation is lower. The comparison should be paired on the same seeds, with a paired t-test or bootstrap on the per-seed differences against both reference agents. Further tests: (a) held-out opponents not seen in training (tit-for-tat, random, a learning opponent as in Q8); (b) a mid-run regime change (the opponent switches from rule to aggressive after 2 500 episodes) to measure re-adaptation time; (c) a sensitivity sweep over δ and the conversion coefficients.
 
-# 7. Discussion, limitations and proposed improvements
+# 7. Interactive demo
+
+To make the experiments easy to explore and present, we built a small web interface with **Streamlit** (`demo_app.py` in the GitHub repository). The demo does not re-implement anything: it imports `ECommerceEnvironment`, `QLearningAgent`, `RuleBasedAgent`, `ImprovedQLearningAgent` and `train_rl_against_rule` directly from `agent02_experiment.py`. With the default settings (seed 42) it reproduces the baseline result of Section 4.1 exactly: 35.127 per step for both agents.
+
+**How to run.**
+
+```bash
+pip install -r requirements.txt
+streamlit run demo_app.py
+```
+
+The browser opens at `http://localhost:8501`. Training 5 000 episodes takes about 20 s on a laptop CPU, and results are cached.
+
+**Features.**
+
+| Part of the interface | What it does |
+|---|---|
+| Sidebar | Choose the market scenario (reference, δ = 0.10, persistent demand, aggressive opponent), the RL agent type (reference or improved Q-learner), α, the ε schedule, the number of episodes and the seed |
+| Tab "Training & comparison" | Trains the RL agent, then evaluates it and the rule-based agent greedily in slot 0 (500 episodes, same seed, same opponent); shows both rewards per step, the difference, the discount rates, the training curve and the learned Q-table |
+| Tab "Step-by-step simulation" | Replays one 20-step episode with the same seed for the RL agent and the rule-based agent side by side: demand, both actions, conversion, sales and profit at every step (discounts highlighted) |
+| Tab "Results in the report" | Shows the 5-seed results table, the Q10 ablation and the main figures from `agent02_results/` |
+
+![Demo, training & comparison tab: reference market, reference Q-learner, seed 42. Both agents earn 35.127 per step, exactly as in Section 4.1.](img/demo_1_train.png)
+
+![Demo, step-by-step tab: the same 20-step episode for the RL agent (left) and the rule-based agent (right). Both hold the price at every step and earn the same profit (795).](img/demo_2_steps.png)
+
+![Demo with the aggressive opponent and the improved Q-learner (seed 42): 27.446 per step against 23.305 for the rule-based agent (+4.14), consistent with Table Q10.](img/demo_3_aggressive.png)
+
+![Demo, results tab: the 5-seed results table and the Q10 ablation read from the CSV files of the full run.](img/demo_4_report.png)
+
+The single-seed numbers in the demo (e.g. 27.446 for the improved agent against the aggressive opponent with seed 42) differ slightly from the 5-seed means in Section 6, because they come from one training seed and one evaluation seed. They are within the reported standard deviations.
+
+# 8. Discussion, limitations and proposed improvements
 
 - **Rule-based agents are consistent, but only as good as their rules.** In the reference market the rules happen to be optimal against themselves (never discount on reachable states) and no amount of learning beats them. Against an aggressive competitor the same rules lose 4.6 per step compared with the best response. Their weakness is not noise but the lack of any mechanism to notice that.
 - **Learning gives no guarantee of optimality.** The reference Q-learner matched the rules in the reference market, but also learned *worse* policies when α or ε was badly set (Table 4.6) and in two modified markets (Q9). Learning works when the state contains what matters and the estimates are precise enough. The Q10 ablation shows that fixing those two conditions removes most of the gap.
@@ -485,11 +517,11 @@ Rationale. The augmented state makes the problem Markov with respect to any oppo
 
 **Further improvements:** several discount levels or continuous prices with function approximation; demand that responds to prices; customer heterogeneity and inventory; training against a *population* of opponents (rule, aggressive, learning) so the policy generalises; reporting confidence intervals and paired tests by default.
 
-# 8. Conclusion
+# 9. Conclusion
 
 We implemented a two-seller e-commerce simulation, a tabular Q-learning agent and a rule-based agent, and compared them under a separated, greedy, multi-seed evaluation in which both policies occupy the same slot against the same opponent. In the reference market the two approaches are **tied at 34.89 ± 0.31 per step**: the Q-learner rediscovers the rule-based policy, which is analytically optimal against this opponent (35.0). Learning shows its value only when the environment departs from what the rules assumed (aggressive opponent: +3.6 per step). The reference learner also has clear weak points: sensitivity to α and ε, failures in two modified markets, and unpredictable outcomes when two learners interact. Most of these failures trace back to two causes, a state that omits the agent's own previous action and noisy constant-α updates. An agent that fixes both was as good as the rules where the rules are right and better where they are wrong. The general lesson: the ranking of the two approaches depends on the environment, the state design and the evaluation protocol, so a careful comparison needs analytic baselines, matched seeds and several environments, not a single training curve.
 
-# 9. References
+# 10. References
 
 1. Course material: *Laboratory Experiment 02 – Reinforcement-Learning-Based Agents versus Rule-Based Agents* and *AGENT02: Python Implementation*, Intelligent System Development, 2026–2027.
 2. Course slides: *Multi-Agent Systems*, 20 October 2026.

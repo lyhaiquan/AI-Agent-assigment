@@ -33,7 +33,7 @@ Mục tiêu là mô hình hoá bài toán như một hệ đa agent, cài đặt
 1. Trong thị trường gốc, agent RL sau huấn luyện và agent dựa trên luật đạt **phần thưởng đánh giá giống hệt nhau** (34.89 ± 0.31 mỗi bước, trên 5 seed). Trên các trạng thái thực sự gặp phải, cả hai chính sách đều quy về "không bao giờ giảm giá". Tính toán giải tích ở mục 5.1 cho thấy đây là chính sách tốt nhất trước đối thủ này (kỳ vọng 35.0 mỗi bước).
 2. Việc học khá mong manh. Learning rate cao (α = 0.5) hoặc khám phá nhiều (ε cố định 0.30) tạo ra chính sách giảm giá quá thường xuyên, mất 1–6 đơn vị mỗi bước.
 3. Khi môi trường thay đổi, agent dựa trên luật không thể thích nghi. Trước đối thủ hung hăng luôn giảm giá, agent RL đạt **26.73** so với **23.16** của agent luật. Nhưng agent RL gốc cũng *thua* agent luật ở hai thị trường đã sửa đổi, vì trạng thái của nó không chứa hành động trước đó của chính nó.
-4. Một Q-learner cải tiến, thêm hành động trước đó của chính mình vào trạng thái và dùng learning rate giảm dần, bằng agent luật ở nơi luật tốt và vượt agent luật ở nơi luật kém (mục 6, câu 10).
+4. Một Q-learner cải tiến, thêm hành động trước đó của chính mình vào trạng thái và dùng learning rate giảm dần, bằng agent luật ở nơi luật tốt và vượt agent luật ở nơi luật kém (mục 6, câu 10; demo ở mục 7).
 
 # 2. Môi trường và các agent
 
@@ -475,7 +475,39 @@ Lý do. Trạng thái mở rộng làm bài toán có tính Markov đối với 
 
 **Làm sao kết luận "bền vững hơn".** Một agent bền vững hơn nếu, trên một *tập* môi trường và seed, (i) phần thưởng trung bình trong trường hợp xấu nhất cao hơn, (ii) regret trung bình so với chính sách tốt nhất ở từng môi trường thấp hơn, và (iii) độ lệch chuẩn giữa các seed thấp hơn. Việc so sánh nên ghép cặp trên cùng các seed, dùng paired t-test hoặc bootstrap trên hiệu số theo từng seed so với cả hai agent tham chiếu. Các kiểm tra thêm: (a) đối thủ chưa gặp khi huấn luyện (tit-for-tat, ngẫu nhiên, một đối thủ cũng học như ở câu 8); (b) thay đổi chế độ giữa chừng (đối thủ chuyển từ luật sang hung hăng sau 2 500 episode) để đo thời gian thích nghi lại; (c) quét độ nhạy theo δ và các hệ số chuyển đổi.
 
-# 7. Thảo luận, hạn chế và đề xuất cải tiến
+# 7. Demo giao diện
+
+Để dễ khám phá và trình bày các thí nghiệm, chúng tôi xây dựng một giao diện web nhỏ bằng **Streamlit** (`demo_app.py` trong repository GitHub). Demo không viết lại logic nào: nó import trực tiếp `ECommerceEnvironment`, `QLearningAgent`, `RuleBasedAgent`, `ImprovedQLearningAgent` và `train_rl_against_rule` từ `agent02_experiment.py`. Với thiết lập mặc định (seed 42), demo tái lập chính xác kết quả baseline ở mục 4.1: 35.127 mỗi bước cho cả hai agent.
+
+**Cách chạy.**
+
+```bash
+pip install -r requirements.txt
+streamlit run demo_app.py
+```
+
+Trình duyệt sẽ mở tại `http://localhost:8501`. Huấn luyện 5 000 episode mất khoảng 20 giây trên CPU laptop, và kết quả được lưu cache.
+
+**Chức năng.**
+
+| Phần giao diện | Chức năng |
+|---|---|
+| Thanh bên trái | Chọn kịch bản thị trường (gốc, δ = 0.10, nhu cầu lưu trì, đối thủ hung hăng), loại agent RL (Q-learner gốc hoặc cải tiến), α, lịch ε, số episode và seed |
+| Tab "Huấn luyện & so sánh" | Huấn luyện agent RL, rồi đánh giá greedy nó và agent luật ở slot 0 (500 episode, cùng seed, cùng đối thủ); hiển thị lợi nhuận mỗi bước của hai bên, chênh lệch, tỉ lệ giảm giá, đường cong huấn luyện và bảng Q học được |
+| Tab "Mô phỏng từng bước" | Chạy lại một episode 20 bước với cùng seed cho agent RL và agent luật đặt cạnh nhau: nhu cầu, hành động của hai bên, tỉ lệ chuyển đổi, số đơn và lợi nhuận ở từng bước (ô giảm giá được tô màu) |
+| Tab "Kết quả trong báo cáo" | Hiển thị bảng kết quả 5 seed, ablation câu 10 và các hình chính từ `agent02_results/` |
+
+![Demo, tab huấn luyện & so sánh: thị trường gốc, Q-learner gốc, seed 42. Cả hai agent đạt 35.127 mỗi bước, đúng như mục 4.1.](img/demo_1_train.png)
+
+![Demo, tab mô phỏng từng bước: cùng một episode 20 bước cho agent RL (trái) và agent luật (phải). Cả hai giữ giá ở mọi bước và có cùng lợi nhuận (795).](img/demo_2_steps.png)
+
+![Demo với đối thủ hung hăng và Q-learner cải tiến (seed 42): 27.446 mỗi bước so với 23.305 của agent luật (+4.14), phù hợp với bảng ở câu 10.](img/demo_3_aggressive.png)
+
+![Demo, tab kết quả: bảng kết quả 5 seed và ablation câu 10, đọc từ các file CSV của lần chạy đầy đủ.](img/demo_4_report.png)
+
+Các con số một seed trong demo (ví dụ 27.446 của agent cải tiến trước đối thủ hung hăng với seed 42) hơi khác giá trị trung bình 5 seed ở mục 6, vì chúng chỉ đến từ một seed huấn luyện và một seed đánh giá. Chúng vẫn nằm trong phạm vi độ lệch chuẩn đã báo cáo.
+
+# 8. Thảo luận, hạn chế và đề xuất cải tiến
 
 - **Agent dựa trên luật nhất quán, nhưng chỉ tốt bằng các luật của nó.** Trong thị trường gốc, luật tình cờ tối ưu khi gặp chính nó (không giảm giá ở các trạng thái đạt tới được) và không có cách học nào vượt được. Trước một đối thủ hung hăng, cùng bộ luật đó mất 4.6 mỗi bước so với phản ứng tốt nhất. Điểm yếu của nó không phải là nhiễu mà là không có cơ chế nào để nhận ra điều đó.
 - **Việc học không đảm bảo tối ưu.** Q-learner gốc bằng agent luật trong thị trường gốc, nhưng cũng học ra chính sách *kém hơn* khi α hoặc ε được đặt không tốt (bảng 4.6) và ở hai thị trường sửa đổi (câu 9). Việc học hiệu quả khi trạng thái chứa đủ thông tin quan trọng và ước lượng đủ chính xác. Thí nghiệm ablation ở câu 10 cho thấy khắc phục hai điều kiện này xoá được phần lớn khoảng cách.
@@ -485,11 +517,11 @@ Lý do. Trạng thái mở rộng làm bài toán có tính Markov đối với 
 
 **Cải tiến tiếp theo:** nhiều mức giảm giá hoặc giá liên tục với xấp xỉ hàm; nhu cầu phản ứng theo giá; khách hàng không đồng nhất và tồn kho; huấn luyện với một *quần thể* đối thủ (luật, hung hăng, đang học) để chính sách khái quát tốt hơn; mặc định báo cáo khoảng tin cậy và kiểm định ghép cặp.
 
-# 8. Kết luận
+# 9. Kết luận
 
 Chúng tôi đã cài đặt một mô phỏng thương mại điện tử hai người bán, một agent Q-learning dạng bảng và một agent dựa trên luật, rồi so sánh chúng bằng quy trình đánh giá tách riêng, greedy, nhiều seed, trong đó hai chính sách đứng cùng vị trí và gặp cùng đối thủ. Trong thị trường gốc, hai cách tiếp cận **hoà nhau ở mức 34.89 ± 0.31 mỗi bước**: Q-learner tự tìm lại chính sách của agent luật, vốn là tối ưu về mặt giải tích trước đối thủ này (35.0). Việc học chỉ thể hiện giá trị khi môi trường khác với những gì luật giả định (đối thủ hung hăng: +3.6 mỗi bước). Agent học gốc cũng có những điểm yếu rõ ràng: nhạy với α và ε, thất bại ở hai thị trường sửa đổi, và kết cục khó đoán khi hai agent cùng học. Phần lớn các thất bại này bắt nguồn từ hai nguyên nhân: trạng thái thiếu hành động trước đó của chính agent, và cập nhật nhiễu với α cố định. Một agent khắc phục cả hai điều này tốt ngang luật ở nơi luật đúng và tốt hơn ở nơi luật sai. Bài học chung: thứ hạng giữa hai cách tiếp cận phụ thuộc vào môi trường, cách thiết kế trạng thái và quy trình đánh giá. Vì vậy một so sánh cẩn thận cần có mốc tham chiếu giải tích, seed ghép cặp và nhiều môi trường, chứ không chỉ một đường cong huấn luyện.
 
-# 9. Tài liệu tham khảo
+# 10. Tài liệu tham khảo
 
 1. Tài liệu môn học: *Laboratory Experiment 02 – Reinforcement-Learning-Based Agents versus Rule-Based Agents* và *AGENT02: Python Implementation*, Intelligent System Development, 2026–2027.
 2. Slide bài giảng: *Multi-Agent Systems*, 20/10/2026.
