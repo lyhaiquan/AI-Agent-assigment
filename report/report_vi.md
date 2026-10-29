@@ -4,8 +4,8 @@ lang: vi
 ---
 
 <div class="title-page">
-<div class="big">Bài thực hành 02</div>
-<div class="sub">Agent học tăng cường (Reinforcement Learning) và Agent dựa trên luật (Rule-Based)</div>
+<div class="big">Agent học tăng cường và Agent dựa trên luật</div>
+<div class="sub">Reinforcement Learning vs Rule-Based Agents</div>
 <div class="sub">Phát triển Hệ thống Thông minh, Năm học 2026–2027</div>
 <table>
 <tr><td><b>Sinh viên</b></td><td>Lý Hải Quân</td></tr>

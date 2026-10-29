@@ -1,6 +1,6 @@
 # AGENT02 – Agent học tăng cường vs Agent dựa trên luật
 
-**Bài thực hành 02 – Phát triển Hệ thống Thông minh (2026–2027)**
+**Phát triển Hệ thống Thông minh (2026–2027)**
 Sinh viên: **Lý Hải Quân** – MSSV **B23DCCN676** – Lớp **05** – Bài cá nhân
 
 > 📄 Báo cáo: [Tiếng Việt (PDF)](report/agent02_05_LyHaiQuan_vi.pdf) · [English (PDF)](report/agent02_05_LyHaiQuan.pdf)

@@ -4,8 +4,7 @@ lang: en
 ---
 
 <div class="title-page">
-<div class="big">Laboratory Experiment 02</div>
-<div class="sub">Reinforcement-Learning-Based Agents versus Rule-Based Agents</div>
+<div class="big">Reinforcement-Learning-Based Agents versus Rule-Based Agents</div>
 <div class="sub">Intelligent System Development, Academic Year 2026–2027</div>
 <table>
 <tr><td><b>Student</b></td><td>Lý Hải Quân</td></tr>
